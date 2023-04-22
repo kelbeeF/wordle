@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* h1 {
+            color:blue;
+        }
+        .color2 {
+            color:red;
+        }
+        #color3 {
+            color:yellow;
+        } */
+
+        .frontend {
+            margin:30px;
+            padding: 10px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <h1>
+        HTML CSS Lesson
+    </h1>
+    <div class="frontend">
+    <h2 class="color2 ">HTML</h2>
+    <h2 id="color3">CSS</h2>
+    <h2>JavaScript</h2>
+    <!-- <h2 style="color: green;">JavaScript</h2> -->
+    </div>
+
+    <div class="counter">
+        <p>0</p>
+        <button>Down</button>
+        <button>Up</button>
+    </div>
+
+
+</body>
+<script>
+    console.log("hello");
+    document.querySelector(".color2").style.color = "red";
+    document.querySelector("#color3").style.color = "green";
+    h2list = document.querySelectorAll("h2")
+    // document.querySelectorAll.style.color = "blue";
+
+    for (let i=0; i<3; i++){
+       console.log(h2list[i].innerText);
+    }
+
+    document.querySelector("h1").innerText = "HTML CSS JS lesson";
+    let box = document.querySelector(".frontend");
+    box.innerHTML = box.innerHTML + "Python";
+    let python = document.createElement("h2");
+    python.innerText = "Python";
+    box.appendChild(python);
+
+    let number = 0;
+    let container = document.querySelector(".counter");
+    let numberElement = container.querySelector("p");
+    let up = container.querySelectorAll("button")[1];
+    let down = container.querySelectorAll("button")[0];
+
+    function countdown(){
+        number = number-1;
+        numberElement.innerText = number;
+    }
+    down.addEventListener("click", countdown);
+
+    function countup(){
+        number = number+1;
+        numberElement.innerText = number;
+    }
+    up.onclick = countup;
+
+
+    function updateCount(event){
+        if(event.key === "ArrowLeft"){
+            countdown()
+        }else if(event.key === "ArrowRight"){
+            countup()
+        }
+    }
+    document.addEventListener("keydown", updateCount)
+</script>
+</html>
