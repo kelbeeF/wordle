@@ -227,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /** Painting keyboard update (Student) */
     function paintKeyboard(keyboard) {
         // TODO: paint keyboard given highlights
+        console.log(keyboard)
         KEYBOARD_KEYS.forEach(button => {
             const key = button.dataset.key;
             const newStatus = keyboard[key];
@@ -235,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /** Painting a whole Game State (Student) */
-    function paintGameState(gameState) {
+    function paintGameState() {
         // TODO: paint the tiles and keyboard at once
         const gameAttempt = GameState.getAttempt();
         const keyboardHighlights = GameState.getKeyboard();

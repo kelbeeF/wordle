@@ -1,4 +1,4 @@
-const wordlist = ["apple",
+const testwordlist = ["apple",
                   "alley",
                   "paper",
                   "melon",
@@ -9,13 +9,16 @@ const wordlist = ["apple",
                   "right",
                   "since",
                   "fifty",
-                  "fifth"]
+                  "fifth"];
+
+let wordlist = {walid: [], playable: []};
+
 const rating = {
     unknown : 0,
     absent : 1,
     present : 2,
     correct : 3
-}
+}; 
 
 function startgame(round) {
     let{
@@ -62,7 +65,7 @@ function startgame(round) {
 }
 
 function isInputCorrect(word){
-    return wordlist.includes(word)
+    return wordlist.playable.includes(word)||wordlist.valid.includes(word);
 }
 
 function retry(word){
@@ -133,12 +136,12 @@ function saveGame(gameState){
 }
 
 function getTodaysAnswer(){
-    const startDate = new Date(2023, 3, 20).getTime();
+    const startDate = new Date(2023, 5,10).getTime();
     const now = new Date().getTime();
     const msOffset = now - startDate;
-    const daysOffset = msOffset /1000/60/60/24;
-    const answerIndex = ((wordlist.length - 1) % Math.floor(daysOffset)) + 1;
-    return wordlist[answerIndex];
+    const daysOffset = Math.floor(msOffset /1000/60/60/24);
+    const answerIndex = daysOffset % wordlist.playable.length;
+    return wordlist.playable[answerIndex];
 }
 
 function isToday(timestamp){
@@ -147,8 +150,15 @@ function isToday(timestamp){
     return today.toDateString() === source.toDateString();
 }
 
-function loadOrStartGame(){
-    const answer = getTodaysAnswer();
+async function loadOrStartGame(){
+    wordlist = await fetch("./src/fixtures/words.json")
+        .then(responce => {
+            return responce.json();
+        })
+        .then(json => {
+            return json;
+        })
+    let answer = getTodaysAnswer();
     const previousGameString = window.localStorage.getItem("prefaceWordle");
     const previousGame = JSON.parse(previousGameString);
     
